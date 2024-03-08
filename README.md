@@ -2,20 +2,27 @@
 
 <br/>
 
-## 📌 Backend Skills
+## 📌 Skills
 ### Language
 <a><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/></a>
+<a><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/></a>
+
+### Framework
+<a><img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/></a>
 
 ### IDE
 <a><img src="https://img.shields.io/badge/PyCharm-000000.svg?&style=for-the-badge&logo=PyCharm&logoColor=white"/></a>
+<a><img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"/></a>
 
 ### Skills
-<a><img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white"/></a>
-<a><img src="https://img.shields.io/badge/ScikitLearn-FF9900?style=for-the-badge"/></a>
-
+<a><img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/><a>
+<a><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/></a>
+<a><img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white"/></a>
+<a><img src="https://img.shields.io/badge/BeautifulSoup-ffffff?&style=for-the-badge&logoColor=black"/></a>
+<a><img src="https://img.shields.io/badge/Konlpy-3366FF?&style=for-the-badge&logoColor=black"/></a>
 <br/>
 
-## 📌 Backend Descriptions
+## 📌 Descriptions
 ### `Route`
 > ✏️ 플라스크에서 라우트를 설정하는 부분입니다.
 > 1. get_uploaded_data : 프론트에서 엑셀을 업로드하면 해당 라우터로 보내집니다. 받은 데이터를 토대로 전역변수에 담아 저장합니다.
