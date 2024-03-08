@@ -15,6 +15,7 @@
 <a><img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white"/></a>
 
 ### Skills
+<a><img src="https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white"/></a>
 <a><img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/><a>
 <a><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/></a>
 <a><img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white"/></a>
@@ -25,7 +26,7 @@
 <br/>
 
 ## 📌 Backend Descriptions
-### `Search-Box`
+### `Crawler`
 > ✏️ 네이버 검색창처럼 사용자에게 검색을 받고, 원하는 개수 만큼 '네이버 뉴스'의 내용을 BeautifulSoup을 사용하여 스크랩합니다. <br/>
 > 1페이지당 10개씩이기 때문에, 91개로 설정시에 총 10페이지를 긁어 오게 됩니다. <br/>
 > 양이 많아질 수록 대기 시간이 오래 걸립니다. <br/>
@@ -104,6 +105,107 @@ def crawler(maxNum, query, sort, s_date, e_date):
 crawler("100", keyword, "0", "datetime.datetime.now()", "20220430" )
 ...
 ```
+---
+
+### `Data-To-DataFrame`
+> 크롤러를 통해 긁어온 정보들을 토대로 데이터프레임을 생성합니다.
+> date(날짜), title(제목), press(언론사), contents(내용), link(하이퍼링크)로 구성된 프레임으로 생성하였습니다.
+
+<br/>
+
+```python
+col_name = ["date", "title", "press", "contents", "link"]
+rows = maxNum * 10
+target_articles = pd.DataFrame(np.reshape(df1, (rows, 5)), columns=col_name).T.to_dict()
+```
+
+---
+
+### `Konlpy Analysis`
+> konlpy를 활용하여 형태소 분석을 진행합니다. <br/>
+> 형태소 분석이 끝나면, 워드클라우드와 데이터시각화 데이터를 넣어 render_template context에 넣어 함께 리턴합니다.
+
+<br/>
+
+```python
+from konlpy.tag import Kkma
+from collections import Counter
+from wordcloud import WordCloud
+
+filename = datetime.datetime.now().strftime('%Y%m%d-%H') + ".csv"
+df = pd.read_csv(filename)
+content_origin = df['contents']
+content = list(content_origin)
+content_list = [str(item) for item in content if isinstance(item, str)]
+ana_text = " ".join(content_list)
+
+# 형태소 분석
+# https://konlpy.org/en/latest/api/konlpy.tag/#mecab-class
+okt = Okt()
+df_noun = okt.nouns(ana_text)
+noun_list = [n for n in df_noun if len(n) > 1]  # 한글자 단어 삭제
+
+# 명사들을 카운팅 해보자
+counts = Counter(noun_list)
+
+# 가장 많이 나온 단어부터 30개만 가져오자
+target_words = counts.most_common(30)
+
+# window : r"C:\Windows\Fonts\malgun.ttf"
+wc = WordCloud(font_path="malgun",
+               background_color="white",
+               max_font_size=60)
+
+cloud = wc.generate_from_frequencies(dict(target_words))
+cloud_filename = './static/images/'+ inputKeyword.replace(" ","") + '_wc.jpg'
+cloud.to_file(cloud_filename)
+
+board_info = {
+    'card_title': "오늘 뉴스기사 크롤링",
+    'card_desc': f"가장 높은 카운팅 키워드는 {target_words[0]} 입니다.",
+    'card_date': datetime.datetime.now().strftime('%Y-%m-%d')
+}
+
+## Graph 파일 만들기
+df = pd.DataFrame(data=target_words, columns=['keyword', 'count'])
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+plt.switch_backend('Agg')
+
+## 한글폰트 설정
+plt.rc('font', family='malgun')
+plt.rcParams['axes.unicode_minus'] = False
+
+plt.bar(df['keyword'],df['count'])
+plt.ylabel("Count")
+plt.xticks(rotation=90)
+
+plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['figure.figsize'] = (10, 8)
+plt.rc('font', family='Gulim')
+ax = sns.barplot(x=df['count'], y=df['keyword'])
+
+for p in ax.patches:
+    ax.text(p.get_x() + p.get_width(),
+            p.get_y() + p.get_height(),
+            f"{p.get_width():.0f}" + '건',
+            ha='left')
+
+plt_filename = './static/images/'+ inputKeyword.replace(" ","") + '_chart.png'
+plt.title("Comparing wordcount")
+plt.savefig(plt_filename)
+
+# target_articles에 마지막 혹은 컬럼에 plt 넣고 plt_filename 보내주기
+# target_articles에 마지막 혹은 컬럼에 cloud 넣기 cloud_filename 보내주기
+target_articles['plt'] = plt_filename
+target_articles['cloud'] = cloud_filename
+
+return render_template("naver.html", context=target_articles)
+```
+[↑ 전체코드보기](https://github.com/bbak0105/Flask_Scrapping_Web/blob/master/app.py)
+
+<br/>
 
 ## 📌 Frontend Descriptions
 
