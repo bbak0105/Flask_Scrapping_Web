@@ -209,51 +209,40 @@ return render_template("naver.html", context=target_articles)
 ## 📌 Frontend Descriptions
 ### Search-Box
 ```javaScript
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Genie</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    ...
-</head>
-<body>
-    <div class="container">
-       ...
-       <form role="search" action="{{url_for('naver')}}" method="get">
-            <div class="input-group mb-3">
-                <input
-                    type="text"
-                    class="form-control"
-                    id="keyword"
-                    name="keyword"
-                    placeholder="검색어를 입력하세요"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                >
-                <button type="submit" class="btn btn-outline-info" onclick="handleOnClick()">
-                    Search
-                </button>
-            </div>
-        </form>
+...
+<div class="container">
+   ...
+   <form role="search" action="{{url_for('naver')}}" method="get">
+        <div class="input-group mb-3">
+            <input
+                type="text"
+                class="form-control"
+                id="keyword"
+                name="keyword"
+                placeholder="검색어를 입력하세요"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+            >
+            <button type="submit" class="btn btn-outline-info" onclick="handleOnClick()">
+                Search
+            </button>
+        </div>
+    </form>
 
-        <!-- Loading -->
-        <div class="text-center" id="spinner" style="display:none;">
-            <div class="spinner-grow text-info" role="status" style="width: 3rem; height: 3rem;">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+    <!-- Loading -->
+    <div class="text-center" id="spinner" style="display:none;">
+        <div class="spinner-grow text-info" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript">
-        function handleOnClick() {
-          let element = document.getElementById("spinner");
-          element.style.display = "block";
-        }
-    </script>
-</body>
-</html>
+<script type="text/javascript">
+    function handleOnClick() {
+      let element = document.getElementById("spinner");
+      element.style.display = "block";
+    }
+</script>
 ```
 
 ---
@@ -262,60 +251,49 @@ return render_template("naver.html", context=target_articles)
 >
 >
 ```javaScript
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Naver</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
+...
+<div class = "container">
     ...
-</head>
-<body>
-    <div class = "container">
-        ...
-        <!-- [2]. Card -->
-        <div class="d-flex justify-content-center">
-            <div class="card-group" style="margin:0;auto;">
-                <!-- WordCloud 담는곳 -->
-                <div class="card border-info mb-3" style="max-width: 18rem;">
-                  <div class="card-header bg-transparent border-info"><b>☁ Word Cloud</b></div>
-                  <div class="card-body">
-                      {% if context %}
-                        <img src={{context['cloud']}} width="100%">
-                      {% endif %}
-                  </div>
-                </div>
-                ...
+    <!-- [2]. Card -->
+    <div class="d-flex justify-content-center">
+        <div class="card-group" style="margin:0;auto;">
+            <!-- WordCloud 담는곳 -->
+            <div class="card border-info mb-3" style="max-width: 18rem;">
+              <div class="card-header bg-transparent border-info"><b>☁ Word Cloud</b></div>
+              <div class="card-body">
+                  {% if context %}
+                    <img src={{context['cloud']}} width="100%">
+                  {% endif %}
+              </div>
             </div>
+            ...
         </div>
     </div>
+</div>
+...
 
-    <div class = "container">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">💙</th>
-              <th scope="col">TITLE</th>
-              <th scope="col">CLICK</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% if context %}
-            {% for key, item in context.items() %}
-            <tr>
-              <th scope="row">{{ key }}</th>
-              <td>{{ item['title'] }}</td>
-              <td><a href={{item['link']}}> 원문보기 </a> </td>
-            </tr>
-             {% endfor %}
-          {% endif %}
-          </tbody>
-        </table>
-    </div>
-    ...
-</body>
-</html>
+<div class = "container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">💙</th>
+          <th scope="col">TITLE</th>
+          <th scope="col">CLICK</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% if context %}
+        {% for key, item in context.items() %}
+        <tr>
+          <th scope="row">{{ key }}</th>
+          <td>{{ item['title'] }}</td>
+          <td><a href={{item['link']}}> 원문보기 </a> </td>
+        </tr>
+         {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+</div>
 ```
 ---
 
