@@ -1,4 +1,7 @@
 # 플라스크와 크롤링(스크래퍼)를 활용한 웹사이트 제작
+
+## 📌 Preivew
+
 ![KakaoTalk_Photo_2024-03-10-23-20-33 001](https://github.com/bbak0105/Flask_Scrapping_Web/assets/66405572/430e57aa-55b5-45f4-88c1-d24173578013)
 
 ![KakaoTalk_Photo_2024-03-10-23-20-34 002](https://github.com/bbak0105/Flask_Scrapping_Web/assets/66405572/36e2233a-76b4-4878-af83-f5a87939f4cd)
