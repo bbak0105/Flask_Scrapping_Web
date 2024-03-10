@@ -108,7 +108,7 @@ crawler("100", keyword, "0", "datetime.datetime.now()", "20220430" )
 ---
 
 ### `Data-To-DataFrame`
-> 크롤러를 통해 긁어온 정보들을 토대로 데이터프레임을 생성합니다.
+> 크롤러를 통해 긁어온 정보들을 토대로 데이터프레임을 생성합니다. <br/>
 > date(날짜), title(제목), press(언론사), contents(내용), link(하이퍼링크)로 구성된 프레임으로 생성하였습니다.
 
 <br/>
@@ -207,7 +207,12 @@ return render_template("naver.html", context=target_articles)
 <br/>
 
 ## 📌 Frontend Descriptions
-### Search-Box
+### `Search-Box`
+> 사용자에게 검색어를 입력받는 form 입니다. <br/>
+> get 방식으로 플라스크 서버에 보내지고 메인 사이트로 이동합니다.
+
+<br/>
+
 ```javaScript
 ...
 <div class="container">
@@ -247,9 +252,12 @@ return render_template("naver.html", context=target_articles)
 
 ---
 
-### Mainboard
->
->
+### `Mainboard`
+> 상단에는 백엔드 서버에서 검색어를 바탕으로 생성한 플로우 차트, 워드클라우드를 보여줍니다. <br/>
+> 하단에는 크롤링한 데이터를 for문을 사용하여 보여줍니다.
+
+<br/>
+
 ```javaScript
 ...
 <div class = "container">
@@ -295,5 +303,3 @@ return render_template("naver.html", context=target_articles)
     </table>
 </div>
 ```
----
-
